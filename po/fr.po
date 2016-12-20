@@ -1,0 +1,54 @@
+# expint: Exponential Integrals and Incomplete Gamma Function
+# Copyright (C) 2016 Vincent Goulet
+# This file is distributed under the same license as the expint package.
+# Vincent Goulet <vincent.goulet@act.ulaval.ca>, 2016
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: expint 1.0-0\n"
+"Report-Msgid-Bugs-To: Vincent Goulet\n"
+"POT-Creation-Date: 2016-12-15 00:43-0500\n"
+"PO-Revision-Date: 2016-12-15 00:56-0500\n"
+"Last-Translator: Vincent Goulet <vincent.goulet@act.ulaval.ca>\n"
+"Language-Team: French\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: expint.c:352 expint.c:347
+msgid "overflow in expint_E1"
+msgstr "dépassement de capacité dans expint_E1"
+
+#: expint.c:398 expint.c:405 expint.c:393 expint.c:400
+msgid "underflow in expint_E1"
+msgstr "soupassement de capacité dans expint_E1"
+
+#: expint.c:423 expint.c:418
+msgid "overflow in expint_E2"
+msgstr "dépassement de capacité dans expint_E2"
+
+#: expint.c:457 expint.c:464 expint.c:452 expint.c:459
+msgid "underflow in expint_E2"
+msgstr "soupassement de capacité dans expint_E2"
+
+#: expint.c:472 expint.c:467
+msgid "underflow in expint_En"
+msgstr "soupassement de capacité dans expint_En"
+
+#: expint.c:543 expint.c:612 gamma_inc.c:266 expint.c:538 expint.c:607
+msgid "invalid arguments"
+msgstr "arguments incorrects"
+
+#: expint.c:588 expint.c:583
+msgid "internal error in expint_do_expint1"
+msgstr "erreur interne dans expint_do_expint1"
+
+#: expint.c:677 expint.c:672
+msgid "internal error in expint_do_expint2"
+msgstr "erreur interne dans expint_do_expint2"
+
+#: gamma_inc.c:91 gamma_inc.c:190
+msgid "maximum number of iterations reached in gamma_inc_F_CF"
+msgstr "nombre d'itérations maximal atteint dans gamma_inc_F_CF"

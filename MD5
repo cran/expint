@@ -1,14 +1,14 @@
-70f241cdba9d626572cfe7affc289839 *DESCRIPTION
+947e980e005fcff35ad04eaed5a46343 *DESCRIPTION
 1b2aad882a2c192cc4b331075cf60ec8 *NAMESPACE
 89e21eb9a2a925c23e50fbb95e35bf07 *R/expint.R
 0ac7a067fb3ec8aa4722c5127173dd91 *R/gammainc.R
-371c0527aa5cfa5306cf2b60bb6c0c58 *build/partial.rdb
+7974d58698127f324162ee33ffeb6a2c *build/partial.rdb
 97a8832600123ec9e67ff816e32db5fe *build/vignette.rds
 e61c706fdbd70de49569afb91a0e7196 *inst/CITATION
 9e2bbd3ebcf90062c9e8bc6b0515306b *inst/NEWS.Rd
 ed21ec5a48e8edb9d2e413805ce5a4c8 *inst/doc/expint.R
 5d3cf8c41e8137955d5a873fcca211e8 *inst/doc/expint.Rnw
-df1939c7c063c77048e6a491b85a75dd *inst/doc/expint.pdf
+8e045ea34a8cb3eaca5c1de0f7600eae *inst/doc/expint.pdf
 d7d472fd5b250cb674d8346b0a542d62 *inst/example_API/DESCRIPTION
 3369a2d761d00f69ff6cd4d7239100e3 *inst/example_API/NAMESPACE
 b5da8158d9ed99f4ea41439428aa0a59 *inst/example_API/R/pkg.R
@@ -18,7 +18,7 @@ b5da8158d9ed99f4ea41439428aa0a59 *inst/example_API/R/pkg.R
 33888c235b68d91c90e0c45490cb4f9a *inst/example_API/src/init.c
 b6d56cad2a4918add4ffec77171ac36e *inst/example_API/src/locale.h
 5e0f2c2de72114abca5212a9df6e4d2d *inst/example_API/src/pkg.h
-f88c87d155070c222ba287b3ed7828ad *inst/include/expintAPI.h
+779de94c41564597814c2f91ac086985 *inst/include/expintAPI.h
 0028cb1f88b81fd2fdc9534a96fe3574 *man/expint-package.Rd
 f46559b620171a5da7757a0ed91b3bbd *man/expint.Rd
 bf718b5610becfb0d36c8973b6a033e3 *man/gammainc.Rd

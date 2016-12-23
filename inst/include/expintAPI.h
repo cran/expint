@@ -5,7 +5,7 @@
  *  This is derived from code in package zoo.
  *
  *  Copyright (C) 2016 Vincent Goulet
- *  Copyright (C) 2010  Jeffrey A. Ryan jeff.a.ryan @ gmail.com
+ *  Copyright (C) 2010 Jeffrey A. Ryan jeff.a.ryan @ gmail.com
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as

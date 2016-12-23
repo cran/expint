@@ -9,12 +9,19 @@
  *
  *     E_n(x) = int_x^infty exp(-t)/t^n dt.
  *
- *  The code in part IMPLEMENTATION is adapted from the GNU Scientific
+ *  Copyright (C) 2016 Vincent Goulet
+ *
+ *  The code in part IMPLEMENTATION is derived from the GNU Scientific
  *  Library (GSL) v2.2.1 <https://www.gnu.org/software/gsl/>
  *
- *  Copyright (C) 2016 Vincent Goulet
  *  Copyright (C) 2007 Brian Gough
  *  Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002 Gerard Jungman
+ *
+ *  The code in part R TO C INTERFACE is derived from R source code.
+ *
+ *  Copyright (C) 1995--1997 Robert Gentleman and Ross Ihaka
+ *  Copyright (C) 1998--2016 The R Core Team.
+ *  Copyright (C) 2003--2016 The R Foundation
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -626,9 +633,9 @@ static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)())
     {
         xi = x[ix];
         ai = a[ia];
-	if (ISNA(xi) || ISNA(ai))
+	if (ISNA(xi) || ai == NA_INTEGER)
 	    y[i] = NA_REAL;
-        else if (ISNAN(xi) || ISNAN(ai))
+        else if (ISNAN(xi))
 	    y[i] = R_NaN;
         else
         {

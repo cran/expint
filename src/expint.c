@@ -368,10 +368,10 @@ double expint_E1(double x, int scale)
     }
     else if (x <= -1.0)
     {
-	const double s = (scale ? exp(-x) : 1.0);
+	const double s = (scale ? exp(x) : 1.0);
 	const double ln_term = -log(fabs(x));
 	const double cheb = cheb_eval(&E11_cs, (2.0*x+5.0)/3.0);
-	return s * ln_term + cheb;
+	return s * (ln_term + cheb);
     }
     else if (x == 0.0)
     {
@@ -379,10 +379,10 @@ double expint_E1(double x, int scale)
     }
     else if (x <= 1.0)
     {
-	const double s = (scale ? exp(-x) : 1.0);
+	const double s = (scale ? exp(x) : 1.0);
 	const double ln_term = -log(fabs(x));
 	const double cheb = cheb_eval(&E12_cs, x);
-	return s * ln_term - 0.6875 + x + cheb;
+	return s * (ln_term - 0.6875 + x + cheb);
     }
     else if (x <= 4.0)
     {

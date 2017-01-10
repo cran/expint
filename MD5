@@ -1,14 +1,14 @@
-947e980e005fcff35ad04eaed5a46343 *DESCRIPTION
+d532b03de984528857b423be30a42854 *DESCRIPTION
 1b2aad882a2c192cc4b331075cf60ec8 *NAMESPACE
 89e21eb9a2a925c23e50fbb95e35bf07 *R/expint.R
 0ac7a067fb3ec8aa4722c5127173dd91 *R/gammainc.R
-7974d58698127f324162ee33ffeb6a2c *build/partial.rdb
+877520c570d0055b57385cb9cfcef5cd *build/partial.rdb
 97a8832600123ec9e67ff816e32db5fe *build/vignette.rds
 e61c706fdbd70de49569afb91a0e7196 *inst/CITATION
-9e2bbd3ebcf90062c9e8bc6b0515306b *inst/NEWS.Rd
+a25925e218633e13c76e29b79cd90296 *inst/NEWS.Rd
 ed21ec5a48e8edb9d2e413805ce5a4c8 *inst/doc/expint.R
 5d3cf8c41e8137955d5a873fcca211e8 *inst/doc/expint.Rnw
-8e045ea34a8cb3eaca5c1de0f7600eae *inst/doc/expint.pdf
+afa01c5532581d083ab482ebb0fb539e *inst/doc/expint.pdf
 d7d472fd5b250cb674d8346b0a542d62 *inst/example_API/DESCRIPTION
 3369a2d761d00f69ff6cd4d7239100e3 *inst/example_API/NAMESPACE
 b5da8158d9ed99f4ea41439428aa0a59 *inst/example_API/R/pkg.R
@@ -24,7 +24,7 @@ f46559b620171a5da7757a0ed91b3bbd *man/expint.Rd
 bf718b5610becfb0d36c8973b6a033e3 *man/gammainc.Rd
 6b54a96e4ca97a3772256cec4d3173a9 *po/expint.pot
 5d933ad1edf844e2ed62127c60d30954 *po/fr.po
-40dc8f4b053e6bfcd8f2f96851c14b84 *src/expint.c
+39353089b30277738c74d5fffb067a7d *src/expint.c
 170ca30f0f639feb4170ae8a472ab564 *src/expint.h
 5d6045d4c522696b75e2e0aa61ba619b *src/gamma_inc.c
 af965bfd2d0c9244b440c17907d87351 *src/init.c

@@ -2,6 +2,23 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-3}{
+  \subsection{BUG FIX}{
+    \itemize{
+      \item{Fixed wrong values for expint_E1(x, scale = TRUE) for x in
+	(-4, -1] or x in (0, 1]. Thanks to Vincent Dorie
+	\email{vjd4@nyu.edu} for the catch and report.}
+    }
+  }
+}
+
+\section{CHANGES IN \pkg{expint} VERSION 0.1-2}{
+  \itemize{
+    \item{Yet more authors (actually copyright holders) added to the
+      list of authors.}
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-1}{
   \subsection{BUG FIX}{
     \itemize{

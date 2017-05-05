@@ -1,0 +1,2 @@
+## Hide entry points (but for R_init_expint in init.c) 
+PKG_CFLAGS = $(C_VISIBILITY)

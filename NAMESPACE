@@ -1,5 +1,5 @@
 ### C code
-useDynLib(expint, .registration = TRUE)
+useDynLib(expint, .registration = TRUE, .fixes = "C_")
 
 ### Exports
 export(expint, expint_E1, expint_E2, expint_En, expint_Ei)

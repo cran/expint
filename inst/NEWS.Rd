@@ -2,6 +2,18 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-4}{
+  \subsection{BUG FIX}{
+    \itemize{
+      \item{Usage of \code{R_useDynamicSymbols} to preclude compilation
+	\code{NOTE}s, better registration of native routines and reduced
+	symbol visibility.}
+      \item{Vignette no longer uses LaTeX package framed as it was not
+	found on OS X in CRAN builds.} 
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-3}{
   \subsection{BUG FIX}{
     \itemize{

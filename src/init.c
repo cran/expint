@@ -6,6 +6,7 @@
  */
 
 #include <Rinternals.h>
+#include <R_ext/Visibility.h>
 #include <R_ext/Rdynload.h>
 #include "expint.h"
 
@@ -15,9 +16,12 @@ static const R_ExternalMethodDef ExternalEntries[] = {
     {NULL, NULL, 0}
 };
 
-void R_init_expint(DllInfo *dll)
+void attribute_visible R_init_expint(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, NULL, NULL, ExternalEntries);
+    R_useDynamicSymbols(dll, FALSE);
+    R_forceSymbols(dll, TRUE);
+
     R_RegisterCCallable("expint", "expint_E1", (DL_FUNC) expint_E1);
     R_RegisterCCallable("expint", "expint_E2", (DL_FUNC) expint_E2);
     R_RegisterCCallable("expint", "expint_En", (DL_FUNC) expint_En);

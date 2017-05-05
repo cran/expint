@@ -14,16 +14,16 @@
 ### AUTHOR: Vincent Goulet <vincent.goulet@act.ulaval.ca>
 
 expint <- function(x, order = 1L, scale = FALSE)
-    .External("expint_do_expint", "En", x, order, scale)
+    .External(C_expint_do_expint, "En", x, order, scale)
 
 expint_E1 <- function(x, scale = FALSE)
-    .External("expint_do_expint", "E1", x, scale)
+    .External(C_expint_do_expint, "E1", x, scale)
 
 expint_E2 <- function(x, scale = FALSE)
-    .External("expint_do_expint", "E2", x, scale)
+    .External(C_expint_do_expint, "E2", x, scale)
 
 expint_En <- function(x, order, scale = FALSE)
-    .External("expint_do_expint", "En", x, order[1L], scale)
+    .External(C_expint_do_expint, "En", x, order[1L], scale)
 
 expint_Ei <- function(x, scale = FALSE)
-    -.External("expint_do_expint", "E1", -x, scale)
+    -.External(C_expint_do_expint, "E1", -x, scale)

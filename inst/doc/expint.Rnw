@@ -6,10 +6,8 @@
   \usepackage[english]{babel}
   \usepackage{microtype}
   \usepackage[scaled=0.92]{helvet}
-  \usepackage[scaled=1.02]{inconsolata}
   \usepackage[sc]{mathpazo}
-  \usepackage{framed}
-  \usepackage[noae]{Sweave}
+  \usepackage[noae,inconsolata]{Sweave}
 
   %\VignetteIndexEntry{expint user manual}
   %\VignettePackage{expint}
@@ -40,16 +38,18 @@
     bookmarksnumbered = {true},
     bookmarksdepth = {subsubsection}}
 
-  %% Sweave environments redefined to have a color background (using
-  %% environment snugshade* of package framed).
+  %% Sweave environments redefined to have a color background
+  %% (following https://tex.stackexchange.com/a/141128).
   \DefineVerbatimEnvironment{Sinput}{Verbatim}{}
   \DefineVerbatimEnvironment{Soutput}{Verbatim}{}
   \fvset{listparameters={\setlength{\topsep}{0pt}}}
   \renewenvironment{Schunk}{%
-    \setlength{\topsep}{0pt}
-    \colorlet{shadecolor}{codebg}
-    \begin{snugshade*}}%
-    {\end{snugshade*}}
+    \SaveVerbatim{cverb}}%
+    {\endSaveVerbatim
+      \flushleft\fboxrule=0pt\fboxsep=.5em
+      \colorbox{codebg}{%
+        \makebox[\dimexpr\linewidth-2\fboxsep][l]{\BUseVerbatim{cverb}}}%
+      \endflushleft}
 
   %% Additional commands similar to those of RJournal.sty.
   \newcommand{\pkg}[1]{\textbf{#1}}
@@ -317,21 +317,20 @@ the \code{.External} R to C interface and, as a bonus, shows how to
 vectorize an R function on the C side (the code for this being mostly
 derived from base R).
 
-%% Let's reserve this paragraph for a paper.
-% There are various ways to define a package API. The approach described
-% above was derived from package \pkg{zoo} \citep{zoo}. Package
-% \pkg{xts} \citep{xts} --- and probably a few others on CRAN --- draws
-% from \pkg{Matrix} \citep{Matrix} to propose a somewhat simpler
-% approach where the API exposes routines that can be used directly in a
-% package. However, the provided header file can be included only once
-% in a package, otherwise one gets \samp{duplicate symbols} errors at
-% link time. This constraint does no show in the example provided with
-% \pkg{xts} or in packages \pkg{RcppXts} \citep{RcppXts} and \pkg{TTR}
-% \citep{TTR} that link to it (the only two at the time of writing). A
-% way around the issue is to define a native routine calling the
-% routines exposed in the API. In this scenario, tests we conducted
-% proved the approach we retained to be up to 10\% faster most of the
-% time.
+There are various ways to define a package API. The approach described
+above was derived from package \pkg{zoo} \citep{zoo}. Package
+\pkg{xts} \citep{xts} --- and probably a few others on CRAN --- draws
+from \pkg{Matrix} \citep{Matrix} to propose a somewhat simpler
+approach where the API exposes routines that can be used directly in a
+package. However, the provided header file can be included only once
+in a package, otherwise one gets \samp{duplicate symbols} errors at
+link time. This constraint does no show in the example provided with
+\pkg{xts} or in packages \pkg{RcppXts} \citep{RcppXts} and \pkg{TTR}
+\citep{TTR} that link to it (the only two at the time of writing). A
+way around the issue is to define a native routine calling the
+routines exposed in the API. In this scenario, tests we conducted
+proved the approach we retained to be up to 10\% faster most of the
+time.
 
 
 \section{Implementation details}

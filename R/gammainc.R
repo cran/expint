@@ -9,4 +9,4 @@
 ### AUTHOR: Vincent Goulet <vincent.goulet@act.ulaval.ca>
 
 gammainc <- function(a, x)
-    .External("expint_do_gammainc", a, x)
+    .External(C_expint_do_gammainc, a, x)

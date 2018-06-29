@@ -1,6 +1,7 @@
 # expint
+[![Travis-CI Build Status](https://travis-ci.org/vigou3/expint.svg?branch=master)](https://travis-ci.org/vigou3/expint) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/expint)](https://cran.r-project.org/package=expint) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/expint)
 
-Exponential integral and incomplete gamma function for R
+Exponential integral and incomplete gamma function for R.
 
 ## What it is
 
@@ -20,10 +21,9 @@ access to the underlying C workhorses through an API.
 - R interface consisting of one main and four auxiliary functions to
   compute the exponential integral, and one function to compute the
   incomplete gamma function.
-- Underlying C routines derived from the
-  [GNU Scientific Library](https://www.gnu.org/software/gsl/) mature
-  and stable code.
-- Included test package implementing the access to the C routine
+- Underlying C routines derived from mature and stable code of the
+  [GNU Scientific Library](https://www.gnu.org/software/gsl/).
+- Test package implementing the access to the C routine
   through the API. This test package uses the `.External` R to C
   interface and, as a bonus, shows how to vectorize an R function on
   the C side.
@@ -39,7 +39,7 @@ We tabulate the values of the exponential integral of order `n` for `x = 1.275, 
 `n = 1, 2, ..., 10` as found in examples 4 through 6 of
 [Abramowitz and Stegun (1972)](http://people.math.sfu.ca/~cbm/aands/), section 5.3.
 
-``` R
+```R
 R> x <- c(1.275, 10, 12.3)
 R > n <- 1:10
 R> structure(t(outer(x, n, expint)),
@@ -61,7 +61,7 @@ R> structure(t(outer(x, n, expint)),
 We also tabulate the values of the incomplete gamma function for
 `a = -1.5, -1, -0.5, 1` and `x = 1, 2, ..., 10`.
 
-``` R
+```R
 R> a <- c(-1.5, -1, -0.5, 1)
 R> x <- 1:10
 R> structure(t(outer(a, x, gammainc)),
@@ -88,10 +88,11 @@ expected to change much in the future. In other words: stable.
 
 ## Installation
 
-The package should be installed from
-[CRAN](https://cran.r-project.org) using
+You  should install the stable version of the package from the
+[Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/package=expint)
+using:
 
-``` R
+```R
 install.packages("expint")
 ```
 
@@ -103,4 +104,6 @@ R code) are credited in the `DESCRIPTION` file.
 
 ## License
 
-GPL (>= 2)
+**expint** is free software licensed under the [GNU General Public
+License (GPL)](https://www.gnu.org/copyleft/gpl.html), version 2 or later.
+

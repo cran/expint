@@ -1,8 +1,8 @@
 Package: expint
 Type: Package
 Title: Exponential Integral and Incomplete Gamma Function
-Version: 0.1-4
-Date: 2017-05-05
+Version: 0.1-5
+Date: 2018-06-29
 Authors@R: c(person("Vincent", "Goulet", role = c("cre", "aut"),
  	            email = "vincent.goulet@act.ulaval.ca"),
 	     person("Gerard", "Jungman", role = "aut",
@@ -31,11 +31,13 @@ Description: The exponential integrals E_1(x), E_2(x), E_n(x) and
   GNU Scientific Library <https://www.gnu.org/software/gsl/>.
 Depends: R (>= 3.3.0)
 License: GPL (>= 2)
+URL: https://github.com/vigou3/expint
+BugReports: https://github.com/vigou3/expint/issues
 Encoding: UTF-8
 LazyLoad: yes
 LazyData: yes
 NeedsCompilation: yes
-Packaged: 2017-05-05 18:53:07 UTC; vincent
+Packaged: 2018-06-29 15:09:06 UTC; vincent
 Author: Vincent Goulet [cre, aut],
   Gerard Jungman [aut] (Original GSL code),
   Brian Gough [aut] (Original GSL code),
@@ -46,4 +48,4 @@ Author: Vincent Goulet [cre, aut],
   R Foundation [aut] (Parts of the R to C interface)
 Maintainer: Vincent Goulet <vincent.goulet@act.ulaval.ca>
 Repository: CRAN
-Date/Publication: 2017-05-05 22:02:08 UTC
+Date/Publication: 2018-06-29 16:00:33 UTC

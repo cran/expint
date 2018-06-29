@@ -49,13 +49,13 @@
 #include "locale.h"
 #include "expint.h"
 
+
 /*
  *  IMPLEMENTATION OF THE WORKHORSES
  *
  *  Adapted from "special functions" material in the GSL.
  *
  */
-
 
 /* Data structure for a Chebyshev series over a given interval */
 struct cheb_series_struct {
@@ -317,7 +317,7 @@ static cheb_series AE14_cs = {
   13
 };
 
-/* Adapted from specfun/cheb_eval_e.c in GSL sources */
+/* Adapted from specfun/cheb_eval.c in GSL sources */
 static inline double cheb_eval(const cheb_series * cs,
 				 const double x)
 {

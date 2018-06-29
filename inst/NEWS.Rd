@@ -2,6 +2,12 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-5}{
+  \itemize{
+    \item{Minor documentation and comments updates.}
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-4}{
   \subsection{BUG FIX}{
     \itemize{

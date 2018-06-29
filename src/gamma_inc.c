@@ -4,8 +4,8 @@
  *
  *     G(a,x) = int_x^infty t^{a-1} exp(-t) dt
  *
- *  for a real and x >= 0. [This differs from 'pgamma' of base R in
- *  that negative values of 'a' are admitted.]
+ *  for 'a' real and 'x' >= 0. [This differs from 'pgamma' of base R
+ *  in that negative values of 'a' are admitted.]
  *
  *  Copyright (C) 2016 Vincent Goulet
  *
@@ -46,6 +46,14 @@
 #include <Rmath.h>
 #include "locale.h"
 #include "expint.h"
+
+
+/*
+ *  IMPLEMENTATION OF THE WORKHORSE
+ *
+ *  Adapted from "special functions" material in the GSL.
+ *
+ */
 
 /* Continued fraction which occurs in evaluation
  * of Q(a,x) or Gamma(a,x).
@@ -254,13 +262,21 @@ double gamma_inc(double a, double x)
 }
 
 
-/* R interface. Inspired from R sources and dpq.c in actuar */
+/*
+ *  R TO C INTERFACE
+ *
+ *  Adapted from src/main/arithmetic.c in R sources and from a similar
+ *  scheme in package actuar. Main difference: everything is in this
+ *  one file.
+ *
+ */
 #define mod_iterate1(n1, n2, i1, i2)            \
         for (i = i1 = i2 = 0; i < n;            \
              i1 = (++i1 == n1) ? 0 : i1,        \
              i2 = (++i2 == n2) ? 0 : i2,        \
              ++i)
 
+/* Function called by .External() */
 SEXP expint_do_gammainc(SEXP args)
 {
     SEXP sx, sa, sy;

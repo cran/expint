@@ -30,13 +30,13 @@ expint_Ei(5)
 
 
 ###################################################
-### code chunk number 5: expint.Rnw:377-378
+### code chunk number 5: expint.Rnw:383-384
 ###################################################
 op <- options() # remember default number of digits
 
 
 ###################################################
-### code chunk number 6: expint.Rnw:380-383
+### code chunk number 6: expint.Rnw:386-389
 ###################################################
 options(digits = 20)
 gammainc(1.2, 3)
@@ -44,13 +44,13 @@ gamma(1.2) * pgamma(3, 1.2, 1, lower = FALSE)
 
 
 ###################################################
-### code chunk number 7: expint.Rnw:385-386
+### code chunk number 7: expint.Rnw:391-392
 ###################################################
 options(op)     # restore defaults
 
 
 ###################################################
-### code chunk number 8: expint.Rnw:444-448
+### code chunk number 8: expint.Rnw:450-454
 ###################################################
 x <- c(1.275, 10, 12.3)
 n <- 1:10
@@ -59,7 +59,7 @@ structure(t(outer(x, n, expint)),
 
 
 ###################################################
-### code chunk number 9: expint.Rnw:453-457
+### code chunk number 9: expint.Rnw:459-463
 ###################################################
 a <- c(-1.5, -1, -0.5, 1)
 x <- 1:10

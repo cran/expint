@@ -2,6 +2,17 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-6}{
+  \itemize{
+    \item{Fixed the example API and the documentation in the vignette.
+      The previous implementation yielded duplicated symbols with option
+      \code{-fno-common} that will be the default in gcc starting with
+      version 10.0.x. Thanks to Joshua Ulrich
+      \email{josh.m.ulrich@gmail.com}, maintainer of 
+      \pkg{xts} and \pkg{TTR} for proposing the fix.}
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-5}{
   \itemize{
     \item{Minor documentation and comments updates.}

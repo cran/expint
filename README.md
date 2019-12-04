@@ -1,5 +1,5 @@
 # expint
-[![Travis-CI Build Status](https://travis-ci.org/vigou3/expint.svg?branch=master)](https://travis-ci.org/vigou3/expint) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/expint)](https://cran.r-project.org/package=expint) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/expint)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/expint)](https://cran.r-project.org/package=expint) ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/expint)
 
 Exponential integral and incomplete gamma function for R.
 

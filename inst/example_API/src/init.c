@@ -48,3 +48,7 @@ void R_init_pkg(DllInfo *dll)
     pkg_expint_E1 = (double(*)(double,int))    R_GetCCallable("expint", "expint_E1");
     pkg_gamma_inc = (double(*)(double,double)) R_GetCCallable("expint", "gamma_inc");
 }
+
+/* Declaration of interfaces to routines from package expint */
+double(*pkg_expint_E1)(double,int);
+double(*pkg_gamma_inc)(double,double);

@@ -293,20 +293,10 @@ her code should proceed as follows.
   directives of the \file{DESCRIPTION} file of \pkg{pkg};
 \item Add an entry \samp{import(expint)} in the \file{NAMESPACE} file
   of \pkg{pkg};
-\item Declare a native routine that will call \code{expint\_E1} in a
-  header file of \pkg{pkg}. For example, one could declare a routine
-  named \code{pkg\_expint\_E1} (to avoid any name clash) in the
-  \file{src/pkg.h} file as follows:
-\begin{Schunk}
-\begin{Sinput}
-double(*pkg_expint_E1)(double,int);
-\end{Sinput}
-\end{Schunk}
-\item Define the aforementioned routine with a call to
-  \code{R\_GetCCallable} in the initialization routine
-  \code{R\_init\_pkg} of \pkg{pkg} \citep[Section~5.4]{WRE}. For the
-  current example, the file \file{src/init.c} of \pkg{pkg} would
-  contain the following code:
+\item Define the routine with a call to \code{R\_GetCCallable} in the
+  initialization routine \code{R\_init\_pkg} of \pkg{pkg}
+  \citep[Section~5.4]{WRE}. For the current example, the file
+  \file{src/init.c} of \pkg{pkg} would contain the following code:
 \begin{Schunk}
 \begin{Sinput}
 void R_init_pkg(DllInfo *dll)
@@ -316,6 +306,22 @@ void R_init_pkg(DllInfo *dll)
     pkg_expint_E1 = (double(*)(double,int,int))
                     R_GetCCallable("expint", "expint_E1");
 }
+\end{Sinput}
+\end{Schunk}
+\item Define a native routine interface that will call
+  \code{expint\_E1}, say \code{pkg\_expint\_E1} to avoid any name
+  clash, in \file{src/init.c} as follows:
+\begin{Schunk}
+\begin{Sinput}
+double(*pkg_expint_E1)(double,int);
+\end{Sinput}
+\end{Schunk}
+\item Declare the routine in a header file of \pkg{pkg} with the
+  keyword \code{extern} to expose the interface to all routines of the
+  package. In our example, file \file{src/pkg.h} would contain:
+\begin{Schunk}
+\begin{Sinput}
+extern double(*pkg_expint_E1)(double,int);
 \end{Sinput}
 \end{Schunk}
 \item Include the package header file \file{pkg.h} in any C file
@@ -465,7 +471,9 @@ this paper to create \pkg{expint}, so the R Core Team and the package
 developers deserve credit. We also extend our thanks to Dirk
 Eddelbuettel who was of great help in putting together the package
 API, through both his posts in online forums and private
-communication.
+communication. Joshua Ulrich provided a fix to the API infrastructure
+to avoid duplicated symbols that was implemented in version 0.1-6 of
+the package.
 
 
 \bibliography{expint}

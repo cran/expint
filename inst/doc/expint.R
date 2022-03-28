@@ -1,5 +1,4 @@
 ### R code from vignette source 'expint.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: expint.Rnw:76-78

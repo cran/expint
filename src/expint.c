@@ -346,8 +346,8 @@ double expint_E1(double x, int scale)
 	return x;
 #endif
 
-    const double xmaxt = -LOG_DOUBLE_XMIN;      /* XMAXT = -LOG(DOUBLE_XMIN) */
-    const double xmax  = xmaxt - log(xmaxt);    /* XMAX = XMAXT - LOG(XMAXT) */
+    const double xmaxt = -LOG_DBL_MIN;       /* XMAXT = -LOG(DBL_MIN) */
+    const double xmax  = xmaxt - log(xmaxt); /* XMAX = XMAXT - LOG(XMAXT) */
 
     if (x < -xmax && !scale)
     {
@@ -417,7 +417,7 @@ double expint_E2(double x, int scale)
 	return x;
 #endif
 
-    const double xmaxt = -LOG_DOUBLE_XMIN;
+    const double xmaxt = -LOG_DBL_MIN;
     const double xmax  = xmaxt - log(xmaxt);
 
     if (x < -xmax && !scale)
@@ -470,7 +470,7 @@ double expint_E2(double x, int scale)
 
 /* Macro used in expint_En (only) */
 #define CHECK_UNDERFLOW(x)			\
-    if (fabs(x) < DOUBLE_XMIN) {		\
+    if (fabs(x) < DBL_MIN) {			\
         warning(_("underflow in expint_En"));	\
 	return 0.0;				\
     }						\

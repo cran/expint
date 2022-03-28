@@ -2,6 +2,17 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-7}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item{Replace deprecated (as of R 4.2.0) macro \code{DOUBLE_EPS} by
+	\code{DBL_EPSILON} in C code.}
+      \item{Remove the unnecessary \code{LazyData} entry in the
+	\code{DESCRIPTION} file.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-6}{
   \itemize{
     \item{Fixed the example API and the documentation in the vignette.

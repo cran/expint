@@ -71,7 +71,7 @@
 double gamma_inc_F_CF(double a, double x)
 {
     const int    nmax  =  5000;
-    const double small =  R_pow_di(DOUBLE_EPS, 3);
+    const double small =  R_pow_di(DBL_EPSILON, 3);
 
     double hn = 1.0;           /* convergent */
     double Cn = 1.0 / small;
@@ -99,7 +99,7 @@ double gamma_inc_F_CF(double a, double x)
 	Dn = 1.0/Dn;
 	delta = Cn * Dn;
 	hn *= delta;
-	if (fabs(delta-1.0) < DOUBLE_EPS)
+	if (fabs(delta-1.0) < DBL_EPSILON)
 	    break;
     }
 
@@ -195,7 +195,7 @@ double gamma_inc_Q_series(double a, double x)
 	{
 	    t *= -x/(n+1.0);
 	    sum += (a+1.0)/(a+n+1.0)*t;
-	    if (fabs(t/sum) < DOUBLE_EPS)
+	    if (fabs(t/sum) < DBL_EPSILON)
 		break;
 	}
     }

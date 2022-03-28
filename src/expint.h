@@ -22,9 +22,9 @@ double expint_En(double x, int order, int scale);
 double gamma_inc(double a, double x);
 
 /* Constants (taken from gsl_machine.h in GSL sources) */
-#define LOG_DOUBLE_XMIN   (-7.0839641853226408e+02)
-#define LOG_DOUBLE_XMAX    7.0978271289338397e+02
-#define EULER_CNST         0.57721566490153286060651209008
+#define LOG_DBL_MIN   (-7.0839641853226408e+02)
+#define LOG_DBL_MAX    7.0978271289338397e+02
+#define EULER_CNST     0.57721566490153286060651209008
 
 /* Macros */
 #define E1_IS_ODD(n)  ((n) & 1)	/* taken from GSL */

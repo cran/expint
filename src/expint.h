@@ -12,10 +12,12 @@
 #define R_MSG_NA        _("NaNs produced")
 
 /* Functions accessed from .External() */
-SEXP expint_do_expint(SEXP args);
-SEXP expint_do_gammainc(SEXP args);
+SEXP expint_do_expint(SEXP);
+SEXP expint_do_expint1(int, SEXP);
+SEXP expint_do_expint2(int, SEXP);
+SEXP expint_do_gammainc(SEXP);
 
-/* Exported function */
+/* Exported functions */
 double expint_E1(double x, int scale);
 double expint_E2(double x, int scale);
 double expint_En(double x, int order, int scale);

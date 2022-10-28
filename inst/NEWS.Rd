@@ -2,6 +2,22 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-8}{
+  \subsection{NEW FEATURE}{
+    \itemize{
+      \item{Unit tests for the incomplete gamma function based on the
+	definition, and for the exponential integrals based on table of
+	Abramowitz and Stegun.}
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item{Include prototypes for all C level functions to please
+	\code{-Wstrict-prototypes}.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-7}{
   \subsection{BUG FIXES}{
     \itemize{

@@ -213,10 +213,9 @@ the exponential integral defined in \eqref{eq:E1}.
 \section{R interfaces}
 \label{sec:interfaces}
 
-Package \pkg{expint} provides one main and four auxiliary R
-functions to compute the exponential integral, and one function to
-compute the incomplete gamma function. The synopses of these are the
-following:
+Package \pkg{expint} provides one main and four auxiliary R functions
+to compute the exponential integral, and one function to compute the
+incomplete gamma function. Their signatures are the following:
 \begin{Schunk}
 \begin{Sinput}
 expint(x, order = 1L, scale = FALSE)

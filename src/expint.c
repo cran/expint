@@ -49,6 +49,9 @@
 #include "locale.h"
 #include "expint.h"
 
+/* Prototypes of auxiliary functions */
+static SEXP expint1_1(SEXP, SEXP, double (*f)(double, int));
+static SEXP expint2_1(SEXP, SEXP, SEXP, double (*f)(double, int, int));
 
 /*
  *  IMPLEMENTATION OF THE WORKHORSES
@@ -533,7 +536,7 @@ double expint_En(double x, int n, int scale)
 
 /* Functions to handle cases with one argument (REAL) and an integer
  * flag */
-static SEXP expint1_1(SEXP sx, SEXP sI, double (*f)())
+static SEXP expint1_1(SEXP sx, SEXP sI, double (*f)(double, int))
 {
     SEXP sy;
     int i, nx, sxo = OBJECT(sx);
@@ -601,7 +604,7 @@ SEXP expint_do_expint1(int code, SEXP args)
              i2 = (++i2 == n2) ? 0 : i2,        \
              ++i)
 
-static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)())
+static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)(double, int, int))
 {
     SEXP sy;
     int i, ix, ia, n, nx, na,
@@ -644,7 +647,7 @@ static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)())
 	    else if (ai == 2)
 		y[i] = expint_E2(xi, i_1);
 	    else
-		y[i] = expint_En(xi, ai, i_1);
+		y[i] = f(xi, ai, i_1);
 	    if (ISNAN(y[i])) naflag = TRUE;
         }
     }

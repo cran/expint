@@ -539,15 +539,14 @@ double expint_En(double x, int n, int scale)
 static SEXP expint1_1(SEXP sx, SEXP sI, double (*f)(double, int))
 {
     SEXP sy;
-    int i, nx, sxo = OBJECT(sx);
+    R_xlen_t i, nx;
     double xi, *x, *y;
-    int i_1;
     Rboolean naflag = FALSE;
 
     if (!isNumeric(sx))
         error(_("invalid arguments"));
 
-    nx = LENGTH(sx);
+    nx = XLENGTH(sx);
     if (nx == 0)
         return(allocVector(REALSXP, 0));
     PROTECT(sx = coerceVector(sx, REALSXP));
@@ -555,7 +554,7 @@ static SEXP expint1_1(SEXP sx, SEXP sI, double (*f)(double, int))
     x = REAL(sx);
     y = REAL(sy);
 
-    i_1 = asInteger(sI);
+    int i_1 = asInteger(sI);
 
     for (i = 0; i < nx; i++)
     {
@@ -574,8 +573,7 @@ static SEXP expint1_1(SEXP sx, SEXP sI, double (*f)(double, int))
     if (naflag)
         warning(R_MSG_NA);
 
-    SET_ATTRIB(sy, duplicate(ATTRIB(sx)));
-    SET_OBJECT(sy, sxo);
+    SHALLOW_DUPLICATE_ATTRIB(sy, sx);
     UNPROTECT(2);
 
     return sy;
@@ -607,17 +605,16 @@ SEXP expint_do_expint1(int code, SEXP args)
 static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)(double, int, int))
 {
     SEXP sy;
-    int i, ix, ia, n, nx, na,
-	sxo = OBJECT(sx), sao = OBJECT(sa);
+    R_xlen_t i, ix, ia, n, nx, na;
     double xi, *x, *y;
-    int ai, *a, i_1;
+    int ai, *a;
     Rboolean naflag = FALSE;
 
     if (!isNumeric(sx) || !isNumeric(sa))
         error(_("invalid arguments"));
 
-    nx = LENGTH(sx);
-    na = LENGTH(sa);
+    nx = XLENGTH(sx);
+    na = XLENGTH(sa);
     if ((nx == 0) || (na == 0))
         return(allocVector(REALSXP, 0));
 
@@ -630,7 +627,7 @@ static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)(double, int, int))
     a = INTEGER(sa);
     y = REAL(sy);
 
-    i_1 = asInteger(sI);
+    int i_1 = asInteger(sI);
 
     mod_iterate2(nx, na, ix, ia)
     {
@@ -656,15 +653,9 @@ static SEXP expint2_1(SEXP sx, SEXP sa, SEXP sI, double (*f)(double, int, int))
         warning(R_MSG_NA);
 
     if (n == nx)
-    {
-        SET_ATTRIB(sy, duplicate(ATTRIB(sx)));
-        SET_OBJECT(sy, sxo);
-    }
+        SHALLOW_DUPLICATE_ATTRIB(sy, sx);
     else if (n == na)
-    {
-        SET_ATTRIB(sy, duplicate(ATTRIB(sa)));
-        SET_OBJECT(sy, sao);
-    }
+        SHALLOW_DUPLICATE_ATTRIB(sy, sa);
 
     UNPROTECT(3);
 
@@ -704,7 +695,7 @@ static expint_tab_struct expint_tab[] = {
 /* Function called by .External() */
 SEXP expint_do_expint(SEXP args)
 {
-    int i;
+    R_xlen_t i;
     const char *name;
 
     /* Extract type of exponential integral */

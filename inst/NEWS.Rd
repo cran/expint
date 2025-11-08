@@ -2,12 +2,21 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.1-9}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item{Replacement of a few API entry points for C API compliance
+	introduced in R 4.5.0.}
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-8}{
   \subsection{NEW FEATURE}{
     \itemize{
       \item{Unit tests for the incomplete gamma function based on the
-	definition, and for the exponential integrals based on table of
-	Abramowitz and Stegun.}
+	definition, and for the exponential integrals based on a table
+	of Abramowitz and Stegun.}
     }
   }
   \subsection{BUG FIXES}{

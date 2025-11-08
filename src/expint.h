@@ -18,10 +18,10 @@ SEXP expint_do_expint2(int, SEXP);
 SEXP expint_do_gammainc(SEXP);
 
 /* Exported functions */
-double expint_E1(double x, int scale);
-double expint_E2(double x, int scale);
-double expint_En(double x, int order, int scale);
-double gamma_inc(double a, double x);
+double expint_E1(double, int);
+double expint_E2(double, int);
+double expint_En(double, int, int);
+double gamma_inc(double, double);
 
 /* Constants (taken from gsl_machine.h in GSL sources) */
 #define LOG_DBL_MIN   (-7.0839641853226408e+02)

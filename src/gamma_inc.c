@@ -209,7 +209,7 @@ double gamma_inc_Q_series(double a, double x)
 }
 
 /* Adapted from specfun/gamma_inc.c in GSL sources. Note that base R
- * function 'gammafn' and 'pgamma' are used for postive values of
+ * function 'gammafn' and 'pgamma' are used for positive values of
  * 'a'. */
 double gamma_inc(double a, double x)
 {
@@ -280,7 +280,7 @@ double gamma_inc(double a, double x)
 SEXP expint_do_gammainc(SEXP args)
 {
     SEXP sx, sa, sy;
-    int i, ix, ia, n, nx, na;
+    R_xlen_t i, ix, ia, n, nx, na;
     double ai, *a, xi, *x, *y;
     Rboolean naflag = FALSE;
 
@@ -289,8 +289,8 @@ SEXP expint_do_gammainc(SEXP args)
     if (!isNumeric(CAR(args)) || !isNumeric(CADR(args)))
         error(_("invalid arguments"));
 
-    na = LENGTH(CAR(args));
-    nx = LENGTH(CADR(args));
+    na = XLENGTH(CAR(args));
+    nx = XLENGTH(CADR(args));
     if ((na == 0) || (nx == 0))
         return(allocVector(REALSXP, 0));
 
@@ -322,15 +322,9 @@ SEXP expint_do_gammainc(SEXP args)
         warning(R_MSG_NA);
 
     if (n == na)
-    {
-        SET_ATTRIB(sy, duplicate(ATTRIB(sa)));
-        SET_OBJECT(sy, OBJECT(sa));
-    }
+        SHALLOW_DUPLICATE_ATTRIB(sy, sa);
     else if (n == nx)
-    {
-        SET_ATTRIB(sy, duplicate(ATTRIB(sx)));
-        SET_OBJECT(sy, OBJECT(sx));
-    }
+        SHALLOW_DUPLICATE_ATTRIB(sy, sx);
 
     UNPROTECT(3);
 

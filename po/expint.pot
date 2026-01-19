@@ -1,5 +1,5 @@
 # expint: Exponential Integrals and Incomplete Gamma Function
-# Copyright (C) 2016 Vincent Goulet
+# Copyright (C) 2016-2026 Vincent Goulet
 # This file is distributed under the same license as the expint package.
 # Vincent Goulet <vincent.goulet@act.ulaval.ca>, 2016
 #
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: expint 1.0-0\n"
 "Report-Msgid-Bugs-To: Vincent Goulet\n"
-"POT-Creation-Date: 2016-12-15 00:43-0500\n"
+"POT-Creation-Date: 2026-01-16 15:52-0500\n"
 "PO-Revision-Date: 2016-12-20 01:57-0500\n"
 "Last-Translator: Vincent Goulet <vincent.goulet@act.ulaval.ca>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: expint.c:352 expint.c:347
+#: expint.c:357
 msgid "overflow in expint_E1"
 msgstr ""
 
-#: expint.c:398 expint.c:405 expint.c:393 expint.c:400
+#: expint.c:403 expint.c:410
 msgid "underflow in expint_E1"
 msgstr ""
 
-#: expint.c:423 expint.c:418
+#: expint.c:428
 msgid "overflow in expint_E2"
 msgstr ""
 
-#: expint.c:457 expint.c:464 expint.c:452 expint.c:459
+#: expint.c:462 expint.c:469
 msgid "underflow in expint_E2"
 msgstr ""
 
-#: expint.c:472 expint.c:467
+#: expint.c:477
 msgid "underflow in expint_En"
 msgstr ""
 
-#: expint.c:543 expint.c:612 gamma_inc.c:266 expint.c:538 expint.c:607
+#: expint.c:547 expint.c:614 gamma_inc.c:192
 msgid "invalid arguments"
 msgstr ""
 
-#: expint.c:588 expint.c:583
+#: expint.c:591
 msgid "internal error in expint_do_expint1"
 msgstr ""
 
-#: expint.c:677 expint.c:672
+#: expint.c:673
 msgid "internal error in expint_do_expint2"
 msgstr ""
 
-#: gamma_inc.c:91 gamma_inc.c:190
+#: gamma_inc.c:107
 msgid "maximum number of iterations reached in gamma_inc_F_CF"
 msgstr ""

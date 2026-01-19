@@ -7,7 +7,7 @@
  *  for 'a' real and 'x' >= 0. [This differs from 'pgamma' of base R
  *  in that negative values of 'a' are admitted.]
  *
- *  Copyright (C) 2016 Vincent Goulet
+ *  Copyright (C) 2016-2026 Vincent Goulet
  *
  *  The code in part IMPLEMENTATION is derived from the GNU Scientific
  *  Library (GSL) v2.2.1 <https://www.gnu.org/software/gsl/>
@@ -17,9 +17,9 @@
  *
  *  The code in part R TO C INTERFACE is derived from R source code.
  *
+ *  Copyright (C) 1998--2025 The R Core Team
+ *  Copyright (C) 2003--2023 The R Foundation
  *  Copyright (C) 1995--1997 Robert Gentleman and Ross Ihaka
- *  Copyright (C) 1998--2016 The R Core Team.
- *  Copyright (C) 2003--2016 The R Foundation
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -109,105 +109,6 @@ double gamma_inc_F_CF(double a, double x)
     return hn;
 }
 
-/* Useful for small a and x. Handles the subtraction analytically. */
-double gamma_inc_Q_series(double a, double x)
-{
-    const int nmax = 5000;
-    double term1;  /* 1 - x^a/Gamma(a+1) */
-    double sum;    /* 1 + (a+1)/(a+2)(-x)/2! + (a+1)/(a+3)(-x)^2/3! + ... */
-    int n;
-    double term2;  /* a temporary variable used at the end */
-
-    {
-	/* Evaluate series for 1 - x^a/Gamma(a+1), small a */
-	const double pg21 = -2.404113806319188570799476;  /* PolyGamma[2,1] */
-	const double lnx = log(x);
-	const double el = EULER_CNST + lnx;
-	const double c1 = -el;
-	const double c2 = M_PI*M_PI/12.0 - 0.5*el*el;
-	const double c3 = el*(M_PI*M_PI/12.0 - el*el/6.0) + pg21/6.0;
-	const double c4 = -0.04166666666666666667
-	    * (-1.758243446661483480 + lnx)
-	    * (-0.764428657272716373 + lnx)
-	    * ( 0.723980571623507657 + lnx)
-	    * ( 4.107554191916823640 + lnx);
-	const double c5 = -0.0083333333333333333
-	    * (-2.06563396085715900 + lnx)
-	    * (-1.28459889470864700 + lnx)
-	    * (-0.27583535756454143 + lnx)
-	    * ( 1.33677371336239618 + lnx)
-	    * ( 5.17537282427561550 + lnx);
-	const double c6 = -0.0013888888888888889
-	    * (-2.30814336454783200 + lnx)
-	    * (-1.65846557706987300 + lnx)
-	    * (-0.88768082560020400 + lnx)
-	    * ( 0.17043847751371778 + lnx)
-	    * ( 1.92135970115863890 + lnx)
-	    * ( 6.22578557795474900 + lnx);
-	const double c7 = -0.00019841269841269841
-	    * (-2.5078657901291800 + lnx)
-	    * (-1.9478900888958200 + lnx)
-	    * (-1.3194837322612730 + lnx)
-	    * (-0.5281322700249279 + lnx)
-	    * ( 0.5913834939078759 + lnx)
-	    * ( 2.4876819633378140 + lnx)
-	    * ( 7.2648160783762400 + lnx);
-	const double c8 = -0.00002480158730158730
-	    * (-2.677341544966400 + lnx)
-	    * (-2.182810448271700 + lnx)
-	    * (-1.649350342277400 + lnx)
-	    * (-1.014099048290790 + lnx)
-	    * (-0.191366955370652 + lnx)
-	    * ( 0.995403817918724 + lnx)
-	    * ( 3.041323283529310 + lnx)
-	    * ( 8.295966556941250 + lnx);
-	const double c9 = -2.75573192239859e-6
-	    * (-2.8243487670469080 + lnx)
-	    * (-2.3798494322701120 + lnx)
-	    * (-1.9143674728689960 + lnx)
-	    * (-1.3814529102920370 + lnx)
-	    * (-0.7294312810261694 + lnx)
-	    * ( 0.1299079285269565 + lnx)
-	    * ( 1.3873333251885240 + lnx)
-	    * ( 3.5857258865210760 + lnx)
-	    * ( 9.3214237073814600 + lnx);
-	const double c10 = -2.75573192239859e-7
-	    * (-2.9540329644556910 + lnx)
-	    * (-2.5491366926991850 + lnx)
-	    * (-2.1348279229279880 + lnx)
-	    * (-1.6741881076349450 + lnx)
-	    * (-1.1325949616098420 + lnx)
-	    * (-0.4590034650618494 + lnx)
-	    * ( 0.4399352987435699 + lnx)
-	    * ( 1.7702236517651670 + lnx)
-	    * ( 4.1231539047474080 + lnx)
-	    * ( 10.342627908148680 + lnx);
-
-	term1 = a*(c1+a*(c2+a*(c3+a*(c4+a*(c5+a*(c6+a*(c7+a*(c8+a*(c9+a*c10)))))))));
-    }
-
-    {
-	/* Evaluate the sum */
-	double t = 1.0;
-	sum = 1.0;
-
-	for (n = 1; n < nmax; n++)
-	{
-	    t *= -x/(n+1.0);
-	    sum += (a+1.0)/(a+n+1.0)*t;
-	    if (fabs(t/sum) < DBL_EPSILON)
-		break;
-	}
-    }
-
-    term2 = (1.0 - term1) * a/(a + 1.0) * x * sum;
-
-    if (n == nmax)
-	warning(_("maximum number of iterations reached in gamma_inc_F_CF"));
-
-    return term1 + term2;
-}
-
 /* Adapted from specfun/gamma_inc.c in GSL sources. Note that base R
  * function 'gammafn' and 'pgamma' are used for positive values of
  * 'a'. */
@@ -235,9 +136,18 @@ double gamma_inc(double a, double x)
 	*/
 	return exp((a - 1) * log(x) - x) * gamma_inc_F_CF(a, x);
     }
-    else if (fabs(a) < 0.5)
+    else if(fabs(a) < 0.5)
     {
-	return gammafn(a) * gamma_inc_Q_series(a, x);
+	/* expint: use the recursion for -0.5 < a < 0 (instead of a
+	 * series expansion as in GSL), relying on the accuracy of
+	 * pgamma for "small" values of 'a', but nevertheless treat
+	 * this case separately to avoid rounding errors in the loop
+	 * below */
+	const double da = a + 1.0;
+	const double gax = gammafn(da) * pgamma(x, da, 1, 0, 0);
+	const double shift = exp(-x + a * log(x));
+
+	return (gax - shift)/a;
     }
     else
     {

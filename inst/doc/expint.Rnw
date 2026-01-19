@@ -36,20 +36,19 @@ and the incomplete gamma function
 are two closely related functions that arise in various
 fields of mathematics.
 
-\pkg{expint} is a small package that intends to fill a gap in R's
-support for mathematical functions by providing facilities to compute
-the exponential integral and the incomplete gamma function.
-Furthermore, and perhaps most conveniently for R package developers,
-the package also gives easy access to the underlying C workhorses through
-an API. The C routines are derived from the GNU Scientific Library
+\pkg{expint} is a small package provides facilities to compute the
+exponential integral and the incomplete gamma function. Furthermore,
+and perhaps most conveniently for R package developers, the package
+also gives easy access to the underlying C workhorses through an API.
+The C routines are derived from the GNU Scientific Library
 \citep[GSL;][]{GSL}.
 
-Package \pkg{expint} started its life in version~2.0-0 of package
-\pkg{actuar} \citep{actuar} where we extended the range
-of admissible values in the computation of limited expected value
-functions. This required an incomplete gamma function that accepts
-negative values of argument $a$, as explained at the beginning of
-Appendix~A of \citet{LossModels4e}.
+The package \pkg{expint} started its life in version~2.0-0 of
+\pkg{actuar} \citep{actuar}, where we extended the range of admissible
+values in the computation of limited expected value functions. This
+required an incomplete gamma function that accepts negative values of
+argument $a$, as explained at the beginning of Appendix~A of
+\citet{LossModels4e}.
 
 
 \section{Exponential integral}
@@ -134,10 +133,11 @@ $a > 0$ one has
 \end{equation}
 
 Integration by parts of the integral in \eqref{eq:gammainc} yields the
-relation
-\begin{equation*}
+recursive relation
+\begin{equation}
+  \label{eq:gammainc_recursion}
   \Gamma(a, x) = -\frac{x^a e^{-x}}{a} + \frac{1}{a} \Gamma(a + 1, x).
-\end{equation*}
+\end{equation}
 When $a < 0$, this relation can be used repeatedly $k$ times until
 $a + k$ is a positive number. The right hand side can then be
 evaluated with \eqref{eq:gammainc_vs_pgamma}. If
@@ -151,8 +151,8 @@ the exponential integral defined in \eqref{eq:E1}.
 \section{R interfaces}
 \label{sec:interfaces}
 
-Package \pkg{expint} provides one main and four auxiliary R functions
-to compute the exponential integral, and one function to compute the
+\pkg{expint} provides one main and four auxiliary R functions to
+compute the exponential integral, and one function to compute the
 incomplete gamma function. Their signatures are the following:
 \begin{Schunk}
 \begin{Sinput}
@@ -171,7 +171,7 @@ discuss. The function takes in argument two vectors or real numbers
 $\Gamma(a, x)$. The function is vectorized in arguments \code{a} and
 \code{x}, so it works similar to, say, \code{pgamma}.
 
-We now turn to the \code{expint} family of functions. Function
+We now turn to the \code{expint} family of functions. The function
 \code{expint} is a unified interface to compute exponential integrals
 $E_n(x)$ of any (non-negative) order, with default the most common
 case $E_1(x)$. The function is vectorized in arguments \code{x} and
@@ -181,13 +181,13 @@ of a different order for each value of $x$.
 expint(c(1.275, 10, 12.3), order = 1:3)
 @
 
-Argument \code{order} should be a vector of integers. Non-integer
+The argument \code{order} should be a vector of integers. Non-integer
 values are silently coerced to integers using truncation towards zero.
 
-When argument \code{scale} is \code{TRUE}, the result is scaled by
+When the argument \code{scale} is \code{TRUE}, the result is scaled by
 $e^{x}$.
 
-Functions \code{expint\_E1}, \code{expint\_E2} and \code{expint\_En} are
+The functions \code{expint\_E1}, \code{expint\_E2} and \code{expint\_En} are
 simpler, slightly faster ways to directly compute exponential
 integrals $E_1(x)$, $E_2(x)$ and $E_n(x)$, the latter for a \emph{single}
 order $n$ (the first value of \code{order} if \code{order} is a
@@ -198,7 +198,7 @@ expint_E2(10)
 expint_En(12.3, order = 3L)
 @
 
-Finally, function \code{expint\_Ei} is provided as a convenience to
+Finally, the function \code{expint\_Ei} is provided as a convenience to
 compute $\Ei(x)$ using \eqref{eq:Ei_vs_E1}.
 <<echo=TRUE>>=
 expint_Ei(5)
@@ -220,13 +220,12 @@ double gamma_inc(double a, double x);
 \end{Sinput}
 \end{Schunk}
 
-Package \pkg{expint} makes these routines available to other packages
-through declarations in the header file \file{include/expintAPI.h} in
-the package installation directory. The developer of some package
-\pkg{pkg} who wants to use a routine --- say \code{expint\_E1} --- in
-her code should proceed as follows.
+\pkg{expint} makes these routines available to other packages through
+declarations in the header file \file{include/expintAPI.h} in the
+package installation directory. If you want to use a routine --- say
+\code{expint\_E1} --- in your package \pkg{pkg}, proceed as follows:
 \begin{enumerate}
-\item Add package \pkg{expint} to the \code{Imports} and \code{LinkingTo}
+\item Add the package \pkg{expint} to the \code{Imports} and \code{LinkingTo}
   directives of the \file{DESCRIPTION} file of \pkg{pkg};
 \item Add an entry \samp{import(expint)} in the \file{NAMESPACE} file
   of \pkg{pkg};
@@ -238,16 +237,16 @@ her code should proceed as follows.
 \begin{Sinput}
 void R_init_pkg(DllInfo *dll)
 {
-    R_registerRoutines( /* native routine registration */ );
+    R_registerRoutines(/* native routine registration */);
 
     pkg_expint_E1 = (double(*)(double,int,int))
                     R_GetCCallable("expint", "expint_E1");
 }
 \end{Sinput}
 \end{Schunk}
-\item Define a native routine interface that will call
-  \code{expint\_E1}, say \code{pkg\_expint\_E1} to avoid any name
-  clash, in \file{src/init.c} as follows:
+\item Define a native routine interface, say \code{pkg\_expint\_E1} to
+  avoid any name clash, in \file{src/init.c} that will call
+  \code{expint\_E1}:
 \begin{Schunk}
 \begin{Sinput}
 double(*pkg_expint_E1)(double,int);
@@ -255,14 +254,14 @@ double(*pkg_expint_E1)(double,int);
 \end{Schunk}
 \item Declare the routine in a header file of \pkg{pkg} with the
   keyword \code{extern} to expose the interface to all routines of the
-  package. In our example, file \file{src/pkg.h} would contain:
+  package. In our example, \file{src/pkg.h} would contain:
 \begin{Schunk}
 \begin{Sinput}
 extern double(*pkg_expint_E1)(double,int);
 \end{Sinput}
 \end{Schunk}
 \item Include the package header file \file{pkg.h} in any C file
-  making use of routine \code{pkg\_expint\_E1}.
+  making use of the routine \code{pkg\_expint\_E1}.
 \end{enumerate}
 
 To help developers get started, \pkg{expint} ships with a complete
@@ -273,13 +272,13 @@ vectorize an R function on the C side (the code for this being mostly
 derived from base R).
 
 There are various ways to define a package API. The approach described
-above was derived from package \pkg{zoo} \citep{zoo}. Package
+above was derived from the package \pkg{zoo} \citep{zoo}. The package
 \pkg{xts} \citep{xts} --- and probably a few others on CRAN --- draws
 from \pkg{Matrix} \citep{Matrix} to propose a somewhat simpler
 approach where the API exposes routines that can be used directly in a
 package. However, the provided header file can be included only once
 in a package, otherwise one gets \samp{duplicate symbols} errors at
-link time. This constraint does no show in the example provided with
+link time. This constraint does not show in the example provided with
 \pkg{xts} or in packages \pkg{RcppXts} \citep{RcppXts} and \pkg{TTR}
 \citep{TTR} that link to it (the only two at the time of writing). A
 way around the issue is to define a native routine calling the
@@ -311,12 +310,10 @@ to the original GSL code:
   value;
 \item accordingly, calculation of the approximation error was dropped
   in all routines;
-\item most importantly, \code{gamma\_inc} does not compute
-  $\Gamma(a, x)$ for $a > 0$ with \eqref{eq:gammainc_vs_pgamma} using
-  the GSL routines, but rather using routines \code{gammafn} and
-  \code{pgamma} part of the R API.
-\end{enumerate}
-The following illustrates the last point.
+\item most importantly, \code{gamma\_inc} computes $\Gamma(a, x)$ for
+  $a > 0$ with \eqref{eq:gammainc_vs_pgamma} using the routines
+  \code{gammafn} and \code{pgamma} of the R API, rather than using the
+  GSL routines, as the example below illustrates;
 <<echo=FALSE>>=
 op <- options() # remember default number of digits
 @
@@ -328,6 +325,12 @@ gamma(1.2) * pgamma(3, 1.2, 1, lower = FALSE)
 <<echo=FALSE>>=
 options(op)     # restore defaults
 @
+\item finally, \code{gamma\_inc} computes $\Gamma(a, x)$ for
+  $-0.5 < a < 0$ using the recursion \eqref{eq:gammainc_recursion}
+  instead of a series expansion as in the GSL routines, thereby
+  relying on the accuracy of \code{pgamma} near $a = 0.5$ (fixes
+  \href{https://gitlab.com/vigou3/expint/-/issues/2}{issue \#2}).
+\end{enumerate}
 
 \section{Alternative packages}
 \label{sec:alternatives}
@@ -353,7 +356,7 @@ real values, as well as $e^{-x} \Ei(x)$ and $E_1(x)$ and their
 derivatives (up to the third derivative). Functions \code{expint},
 \code{expexpint} and \code{expint.E1} are wrappers to the
 Netlib\footnote{%
-  \url{http://www.netlib.org}} %
+  \url{https://www.netlib.org}} %
 FORTRAN subroutines in file \code{ei.f}. \pkg{VGAM} does
 not provide an API to its C routines.
 
@@ -363,8 +366,7 @@ optimization, differential equations and special functions. Its
 versions of \code{expint}, \code{expint\_E1}, \code{expint\_Ei} and
 \code{gammainc} are entirely written in R with perhaps less
 focus on numerical accuracy than the GSL and Netlib
-implementations. The version of \code{gammainc} only supports positive
-values of $a$.
+implementations. The functions are not vectorized.
 
 Package \pkg{frmqa} \citep{frmqa} has a function
 \code{gamma\_inc\_err} that computes the incomplete gamma function
@@ -404,8 +406,8 @@ structure(t(outer(a, x, gammainc)),
 \section{Acknowledgments}
 
 We built on the source code of R and many of the packages cited in
-this paper to create \pkg{expint}, so the R Core Team and the package
-developers deserve credit. We also extend our thanks to Dirk
+this manual to create \pkg{expint}, so the R Core Team and the
+package developers deserve credit. We also extend our thanks to Dirk
 Eddelbuettel who was of great help in putting together the package
 API, through both his posts in online forums and private
 communication. Joshua Ulrich provided a fix to the API infrastructure

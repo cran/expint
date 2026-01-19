@@ -7,7 +7,7 @@ VIGNETTES = expint.pdf
 
 ## Toolset
 SWEAVE = "$(R_HOME)/bin/R" CMD Sweave --encoding="utf-8"
-TEXI2DVI = LATEX=xelatex TEXINDY=makeindex texi2dvi -b
+TEXI2DVI = LATEX=xelatex texi2dvi -b
 RM = rm -rf
 
 all: pdf

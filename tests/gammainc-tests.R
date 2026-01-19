@@ -43,3 +43,13 @@ stopifnot(exprs = {
         -(x^a[3] * exp(-x))/a[3] +
         (-(x^(a[3] + 1) * exp(-x))/(a[3] + 1) + expint_E1(x)/(a[3] + 1))/a[3])
 })
+
+## Issue #2: use the recursion even for -0.5 < a < 0 (unlike GSL
+## sources), relying on the accuracy of 'pgamma' near a = 0.5
+x <- 1e-5
+a <- seq(-0.501, -0.499, length.out = 1000)
+stopifnot(exprs = {
+    all.equal(gammainc(a, x),
+              -(x^a * exp(-x))/a +
+              gamma(a + 1) * pgamma(x, a + 1, 1, lower = FALSE)/a)
+})

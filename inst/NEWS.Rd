@@ -2,6 +2,18 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.2-0}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item{\code{gammainc} now handles values of \code{a} in
+	\eqn{(-0.5, 0)} correctly by using the standard recursion,
+	relying on the accuracy of \code{pgamma} for small values of
+	\code{a}; fixes
+	\href{https://gitlab.com/vigou3/expint/-/issues/2}{issue #2}}.
+    }
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.1-9}{
   \subsection{BUG FIXES}{
     \itemize{

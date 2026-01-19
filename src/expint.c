@@ -9,7 +9,7 @@
  *
  *     E_n(x) = int_x^infty exp(-t)/t^n dt.
  *
- *  Copyright (C) 2016 Vincent Goulet
+ *  Copyright (C) 2016-2026 Vincent Goulet
  *
  *  The code in part IMPLEMENTATION is derived from the GNU Scientific
  *  Library (GSL) v2.2.1 <https://www.gnu.org/software/gsl/>
@@ -19,9 +19,9 @@
  *
  *  The code in part R TO C INTERFACE is derived from R source code.
  *
+ *  Copyright (C) 1998--2025 The R Core Team
+ *  Copyright (C) 2003--2023 The R Foundation
  *  Copyright (C) 1995--1997 Robert Gentleman and Ross Ihaka
- *  Copyright (C) 1998--2016 The R Core Team.
- *  Copyright (C) 2003--2016 The R Foundation
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as

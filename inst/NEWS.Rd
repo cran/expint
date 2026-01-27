@@ -2,6 +2,15 @@
 \title{\pkg{expint} News}
 \encoding{UTF-8}
 
+\section{CHANGES IN \pkg{expint} VERSION 0.2-1}{
+  \itemize{
+    \item{The package vignette now contains an appendix providing
+      more details on the fix introduced in version 0.2-0 for the
+      computation of the incomplete gamma function for small negative
+      values of \code{a}.}
+  }
+}
+
 \section{CHANGES IN \pkg{expint} VERSION 0.2-0}{
   \subsection{BUG FIXES}{
     \itemize{

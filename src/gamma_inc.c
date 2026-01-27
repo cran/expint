@@ -136,11 +136,11 @@ double gamma_inc(double a, double x)
 	*/
 	return exp((a - 1) * log(x) - x) * gamma_inc_F_CF(a, x);
     }
-    else if(fabs(a) < 0.5)
+    else if (fabs(a) < 0.5)
     {
 	/* expint: use the recursion for -0.5 < a < 0 (instead of a
 	 * series expansion as in GSL), relying on the accuracy of
-	 * pgamma for "small" values of 'a', but nevertheless treat
+	 * pgamma for small values of 'a', but nevertheless treat
 	 * this case separately to avoid rounding errors in the loop
 	 * below */
 	const double da = a + 1.0;

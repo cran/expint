@@ -2,6 +2,7 @@
 
   %\VignetteIndexEntry{expint user manual}
   %\VignettePackage{expint}
+  %\VignetteDepends{pracma,gsl}
   %\SweaveUTF8
 
   \title{\pkg{expint}: Exponential integral and incomplete gamma function}
@@ -44,7 +45,7 @@ The C routines are derived from the GNU Scientific Library
 \citep[GSL;][]{GSL}.
 
 The package \pkg{expint} started its life in version~2.0-0 of
-\pkg{actuar} \citep{actuar}, where we extended the range of admissible
+\pkg{actuar} \citep{actuar}, where I extended the range of admissible
 values in the computation of limited expected value functions. This
 required an incomplete gamma function that accepts negative values of
 argument $a$, as explained at the beginning of Appendix~A of
@@ -282,8 +283,8 @@ link time. This constraint does not show in the example provided with
 \pkg{xts} or in packages \pkg{RcppXts} \citep{RcppXts} and \pkg{TTR}
 \citep{TTR} that link to it (the only two at the time of writing). A
 way around the issue is to define a native routine calling the
-routines exposed in the API. In this scenario, tests we conducted
-proved the approach we retained to be up to 10\% faster most of the
+routines exposed in the API. In this scenario, tests I conducted
+proved the approach I retained to be up to 10\% faster most of the
 time.
 
 
@@ -303,17 +304,17 @@ asymptotic expression \eqref{eq:En:asymptotic} otherwise. Routine
 $E_n(x)$ for $n > 2$ through relation \eqref{eq:En_vs_gammainc}.
 
 For the sake of providing routines that better fit within the
-R ecosystem and coding style, we made the following changes
+R ecosystem and coding style, I made the following changes
 to the original GSL code:
 \begin{enumerate}
-\item routines now compute a single value and return their result by
+\item routines compute a single value and return their result by
   value;
-\item accordingly, calculation of the approximation error was dropped
+\item accordingly, calculation of the approximation error is dropped
   in all routines;
-\item most importantly, \code{gamma\_inc} computes $\Gamma(a, x)$ for
-  $a > 0$ with \eqref{eq:gammainc_vs_pgamma} using the routines
-  \code{gammafn} and \code{pgamma} of the R API, rather than using the
-  GSL routines, as the example below illustrates;
+\item \code{gamma\_inc} computes $\Gamma(a, x)$ for $a > 0$ with
+  \eqref{eq:gammainc_vs_pgamma} using the routines \code{gammafn} and
+  \code{pgamma} of the R API, rather than using the GSL routines, as
+  the example below illustrates;
 <<echo=FALSE>>=
 op <- options() # remember default number of digits
 @
@@ -325,11 +326,12 @@ gamma(1.2) * pgamma(3, 1.2, 1, lower = FALSE)
 <<echo=FALSE>>=
 options(op)     # restore defaults
 @
-\item finally, \code{gamma\_inc} computes $\Gamma(a, x)$ for
-  $-0.5 < a < 0$ using the recursion \eqref{eq:gammainc_recursion}
-  instead of a series expansion as in the GSL routines, thereby
-  relying on the accuracy of \code{pgamma} near $a = 0.5$ (fixes
-  \href{https://gitlab.com/vigou3/expint/-/issues/2}{issue \#2}).
+\item \code{gamma\_inc} computes $\Gamma(a, x)$ for $-0.5 < a < 0$
+  using the recursion \eqref{eq:gammainc_recursion} instead of a
+  series expansion as in the GSL routines, thereby relying on the
+  accuracy of \code{pgamma} near $a = 0.5$ (fixes
+  \href{https://gitlab.com/vigou3/expint/-/issues/2}{issue \#2}; see
+  \autoref{sec:computation_gamma_inc} for additional details).
 \end{enumerate}
 
 \section{Alternative packages}
@@ -338,40 +340,41 @@ options(op)     # restore defaults
 The Comprehensive R Archive Network\footnote{%
   \url{https://cran.r-project.org}} %
 (CRAN) contains a number of packages with features overlapping
-\pkg{expint}. We review the similarities and differences here.
+\pkg{expint}. I review the similarities and differences here.
 
 The closest package in functionality is \pkg{gsl} \citep{gsl-package}.
-This package is an R wrapper for the special functions and
-quasi random number generators of the GNU Scientific Library. As such,
-it provides access to basically the same C code as used in
-\pkg{expint}. Apart from the changes to the GSL code mentioned in
+This package is an R wrapper for the special functions and quasi
+random number generators of the GNU Scientific Library. As such, it
+provides access to basically the same C code as used in \pkg{expint}.
+Apart from the changes to the GSL code mentioned in
 \autoref{sec:implementation}, the main difference between the two
-packages is that \pkg{gsl} requires that the GSL be installed on one's
-system, whereas \pkg{expint} is a regular, free standing R
-package.
+packages is that installation from source of \pkg{gsl} requires that
+the GSL be installed on one's system, whereas \pkg{expint} is a
+regular, free standing R package.
 
-Package \pkg{VGAM} \citep{VGAM} is a large, high quality package that
-provides functions to compute the exponential integral $\Ei(x)$ for
-real values, as well as $e^{-x} \Ei(x)$ and $E_1(x)$ and their
-derivatives (up to the third derivative). Functions \code{expint},
+\pkg{VGAM} \citep{VGAM} is a large, high quality package that provides
+functions to compute the exponential integral $\Ei(x)$ for real
+values, as well as $e^{-x} \Ei(x)$ and $E_1(x)$ and their derivatives
+(up to the third derivative). Functions \code{expint},
 \code{expexpint} and \code{expint.E1} are wrappers to the
 Netlib\footnote{%
   \url{https://www.netlib.org}} %
-FORTRAN subroutines in file \code{ei.f}. \pkg{VGAM} does
-not provide an API to its C routines.
+FORTRAN subroutines in file \code{ei.f}. \pkg{VGAM} does not provide
+an API to its C routines.
 
-Package \pkg{pracma} \citep{pracma} provides a large number of
+The package \pkg{pracma} \citep{pracma} provides a large number of
 functions from numerical analysis, linear algebra, numerical
 optimization, differential equations and special functions. Its
 versions of \code{expint}, \code{expint\_E1}, \code{expint\_Ei} and
-\code{gammainc} are entirely written in R with perhaps less
-focus on numerical accuracy than the GSL and Netlib
-implementations. The functions are not vectorized.
+\code{gammainc} are entirely written in R with perhaps less focus on
+numerical accuracy than the GSL and Netlib implementations. The
+functions are not vectorized, and the incomplete gamma function is
+supported for $a \geq -1$ only.
 
-Package \pkg{frmqa} \citep{frmqa} has a function
-\code{gamma\_inc\_err} that computes the incomplete gamma function
-using the incomplete Laplace integral, but it is only valid for
-$a = j + \frac{1}{2}$, $j = 0, 1, 2, \dots$.
+The package \pkg{frmqa} had a function \code{gamma\_inc\_err} that
+computed the incomplete gamma function using the incomplete Laplace
+integral, but it was only valid for $a = j + 0.5$,
+$j = 0, 1, 2, \dots$. (The package was removed from CRAN in 2022.)
 
 Package \pkg{zipfR} \citep{zipfR} introduces a set of functions to
 compute various quantities related to the gamma and incomplete gamma
@@ -383,37 +386,240 @@ functionalities.
 \section{Examples}
 \label{sec:examples}
 
-We tabulate the values of $E_n(x)$ for $x = 1.275, 10, 12.3$ and
+Let us tabulate the values of $E_n(x)$ for $x = 1.275, 10, 12.3$ and
 $n = 1, 2, \dots, 10$ as found in examples~4--6 of
 \citet[section~5.3]{Abramowitz:1972}.
 <<echo=TRUE>>=
 x <- c(1.275, 10, 12.3)
 n <- 1:10
 structure(t(outer(x, n, expint)),
-          dimnames = list(n, paste("x =", x)))
+          dimnames = list(paste("n =", n),
+                          paste("x =", x)))
 @
 
-We also tabulate the values of $\Gamma(a, x)$ for
+We may also tabulate the values of $\Gamma(a, x)$ for
 $a = -1.5, -1, -0.5, 1$ and $x = 1, 2, \dots, 10$.
 <<echo=TRUE>>=
 a <- c(-1.5, -1, -0.5, 1)
 x <- 1:10
 structure(t(outer(a, x, gammainc)),
-          dimnames = list(x, paste("a =", a)))
+          dimnames = list(paste("x =", x),
+                          paste("a =", a)))
 @
 
 
 \section{Acknowledgments}
 
-We built on the source code of R and many of the packages cited in
+I built on the source code of R and many of the packages cited in
 this manual to create \pkg{expint}, so the R Core Team and the
-package developers deserve credit. We also extend our thanks to Dirk
+package developers deserve credit. I also extend my thanks to Dirk
 Eddelbuettel who was of great help in putting together the package
 API, through both his posts in online forums and private
 communication. Joshua Ulrich provided a fix to the API infrastructure
 to avoid duplicated symbols that was implemented in version 0.1-6 of
 the package.
 
+\appendix
+
+\section{Additional details on the computation of the incomplete gamma
+  function}
+\label{sec:computation_gamma_inc}
+
+\href{https://gitlab.com/vigou3/expint/-/issues/2}{Issue \#2} raised
+by Geoffrey Poole highlights that the function \code{gammainc} in
+versions of \pkg{expint} prior to 0.2-0 returned inconsistent results
+for small negative values of $a$ and a small value of $x$.
+\autoref{fig:gammainc_vs_incgam} illustrates the problem by comparing
+the behaviour of $\Gamma(a, 10^{-5})$ around $a = -0.5$ between
+\code{gammainc} of \pkg{expint} (again, prior to 0.2-0) and
+\code{incgam} of \pkg{pracma}.
+
+\begin{figure}[t]
+  \centering
+<<echo=FALSE, fig=TRUE>>=
+a <- seq(-0.501, -0.499, length.out = 1000)
+x <- 1e-5
+if (requireNamespace("gsl"))
+    gGamma <- gsl::gamma_inc(a, x)
+if (requireNamespace("pracma"))
+    pGamma <- sapply(a, pracma::incgam, x = x)
+plot(a, gGamma, type = "l", ylab = expression(Gamma(a, x)),
+     main = "Versions of package expint prior to 0.2-0")
+lines(a, pGamma, lty = 2, lwd = 2, col = "orange")
+legend(-0.5002, 635,
+       c("expint::gammainc(a, 1e-05)", "pracma::incgam(1e-05, a)"),
+       lty = c(1, 2), lwd = c(1, 2), col = c("black", "orange"))
+@
+  \caption{Incomplete gamma function for small negative values of $a$
+    and a small value of $x$}
+  \label{fig:gammainc_vs_incgam}
+\end{figure}
+
+The function \code{gamma\_inc} for the package \pkg{gsl} shows the
+same defect\footnote{%
+  The solid line in Figure \ref*{fig:gammainc_vs_incgam} is actually
+  traced using \code{gamma\_inc}.}, %
+indicating that the problem must lie in the GSL code. Indeed, the GSL
+routine for the incomplete gamma function treats specially the case
+$-0.5 < a < 0$, and reverts to the recursion
+\eqref{eq:gammainc_recursion} only for $a \leq -0.5$.
+
+For $-0.5 < a < 0$, the GSL computes the incomplete gamma function
+using the relation
+\begin{equation*}
+  \Gamma(a, x) = \Gamma(a) Q(a, x),
+\end{equation*}
+with $Q(a, x)$ defined as follows:
+\begin{align*}
+  Q(a, x)
+  &= 1 - P(a, x) \\
+  &= 1 - \frac{\gamma(a, x)}{\Gamma(a)},
+\end{align*}
+with
+\begin{equation*}
+  \gamma(a, x) = P(a, x) \Gamma(a) = \int_0^x t^{a - 1} e^{-t}\, dt.
+\end{equation*}
+The GSL routine \code{gamma\_inc\_Q\_series} carries the computation
+of $Q(a, x)$ using a series expansion. The code is not obvious and
+requires a fair share of reverse engineering. Hence, I document my
+findings here.
+
+First, a series expansion for $\gamma(a, x)$ is \citep[section
+6.5.33]{Abramowitz:1972}:
+\begin{equation}
+  \gamma(a, x) =
+  \sum_{n = 0}^\infty \frac{(-1)^n}{a + n} \frac{x^{a + n}}{n!}.
+\end{equation}
+We can rewrite this expansion as
+\begin{align}
+  \gamma(a, x)
+  &= \frac{x^a}{a} -
+    \sum_{n = 1}^\infty \frac{(-1)^{n - 1}}{a + n} \frac{x^{a + n}}{n!}
+    \notag \\
+  &= \frac{x^a}{a} -
+    \frac{x^{a + 1}}{a + 1}
+    \sum_{n = 1}^\infty (-1)^{n - 1}
+    \left( \frac{a + 1}{a + n} \right) \frac{x^{n - 1}}{n!}.
+    \label{eq:expansion_small_gamma}
+\end{align}
+
+Second, using the fact that $\Gamma(a + 1) = a \Gamma(a)$, we can
+rewrite $Q(a, x)$ as follows:
+\begin{align*}
+  Q(a, x)
+  &= 1 - \frac{x^a}{\Gamma(a + 1)} + \frac{x^a}{\Gamma(a + 1)}
+    - \frac{\gamma(a, x)}{\Gamma(a)} \\
+  &= 1 - \frac{x^a}{\Gamma(a + 1)} +
+    \frac{1}{\Gamma(a)}
+    \left(
+      \frac{x^a}{a} - \gamma(a, x)
+    \right) \\
+  &= 1 - \frac{x^a}{\Gamma(a + 1)} +
+    \frac{x^a}{\Gamma(a + 1)}
+    \frac{\Gamma(a + 1)}{\Gamma(a)}
+    \frac{x}{x^{a + 1}}
+    \left(
+      \frac{x^a}{a} - \gamma(a, x)
+    \right) \\
+  &= 1 - \frac{x^a}{\Gamma(a + 1)} +
+    \frac{x^a}{\Gamma(a + 1)}
+    \left(
+      \frac{a}{a + 1}
+    \right)
+    x
+    \left(
+      \frac{a + 1}{x^{a + 1}}
+    \right)
+    \left(
+      \frac{x^a}{a} - \gamma(a, x)
+    \right).
+\end{align*}
+If we define $\phi(a) = 1 - x^a/\Gamma(a + 1)$ and we simplify the last
+term above using \eqref{eq:expansion_small_gamma}, we finally obtain:
+\begin{equation}
+  \label{eq:gsl_q_series}
+  Q(a, x) = \phi(a) + (1 - \phi(a))
+  \left(
+    \frac{a}{a + 1}
+  \right)
+  x
+  \sum_{n = 1}^\infty (-1)^{n - 1}
+  \left( \frac{a + 1}{a + n} \right) \frac{x^{n - 1}}{n!}.
+\end{equation}
+This is the expression used to compute $Q(a, x)$.
+
+The only remaining element is the computation of $\phi(a)$. For this,
+the routine \code{gamma\_inc\_Q\_series} uses the product of the
+Taylor series expansion of $x^a$ around $a = 0$,
+\begin{equation*}
+  x^a = \sum_{n = 0}^\infty \frac{(a \ln x)^n}{n!},
+\end{equation*}
+and the following Taylor series expansion of the reciprocal gamma
+function \citep{Mathworld:Gamma}:
+\begin{equation*}
+  \frac{1}{\Gamma(a + 1)} = 1 + \gamma a +
+  \left( \frac{\gamma^2}{2} - \frac{\pi^2}{12} \right) a^2 +
+  \left(
+    \frac{\gamma^3}{6} - \frac{\gamma\pi^2}{12} + \frac{\zeta(3)}{3}
+  \right) a^3 + \cdots,
+\end{equation*}
+where $\gamma$ is the Euler constant, and $\zeta$ is the Riemann zeta
+function \citep[chapters 6 and 23]{Abramowitz:1972}. Putting all these
+pieces together, we obtain:
+\begin{align*}
+  \phi(a)
+  &= 1 - \frac{x^a}{\Gamma(a + 1)} \\
+  &= - (\ln x + \gamma) a +
+    \left\{
+      \frac{\pi}{12} - (\ln x + \gamma)^2
+    \right\} a^2 \\
+  &\phantom{=} +
+    \left\{
+      (\ln x + \gamma)
+      \left(
+        \frac{\pi}{12} - \frac{(\ln x + \gamma)^2}{6}
+      \right) -
+      \frac{\zeta(3)}{3}
+    \right\} a^3 + \cdots.
+\end{align*}
+One will recognize above the coefficients \code{c1}, \code{c2} and
+\code{c3} of \code{term1} in the routine \code{gamma\_inc\_Q\_series}.
+It is not clear where the numerical values in the other seven
+coefficients come from. Here endeth reverse engineering.
+
+The fix introduced in \pkg{expint} 0.2-0 follows the same strategy as
+\pkg{pracma}: just use the recursion \eqref{eq:gammainc_recursion}
+also for $-0.5 < a < 0$, and rely on the accuracy of \code{pgamma} for
+small values of $a$ to yield the correct result.
+\autoref{fig:gammainc_vs_incgam_fixed} shows that the results from
+\pkg{expint} and \pkg{pracma} now match.
+
+One last implementation detail: the original GSL code uses a loop to
+compute \eqref{eq:gammainc_recursion} as many times as necessary for
+$a < -0.5$. Simply extending usage of the loop to $a < 0$ does not
+work due to rounding errors in computations involving values of $a$ in
+$(-0.5, 0)$. Therefore, \pkg{expint} keeps as a special case the
+single application of the recursive relation for $a$ in the latter
+range.
+
+\begin{figure}[t]
+  \centering
+<<echo=FALSE, fig=TRUE>>=
+a <- seq(-0.501, -0.499, length.out = 1000)
+x <- 1e-5
+eGamma <- gammainc(a, x)
+if (requireNamespace("pracma"))
+    pGamma <- sapply(a, pracma::incgam, x = x)
+plot(a, eGamma, type = "l", ylab = expression(Gamma(a, x)),
+     main = "Versions of package expint from 0.2-0")
+lines(a, pGamma, lty = 2, lwd = 2, col = "orange")
+legend(-0.5002, 635,
+       c("expint::gammainc(a, 1e-05)", "pracma::incgam(1e-05, a)"),
+       lty = c(1, 2), lwd = c(1, 2), col = c("black", "orange"))
+@
+  \caption{Fixed incomplete gamma function}
+  \label{fig:gammainc_vs_incgam_fixed}
+\end{figure}
 
 \bibliography{expint}
 
